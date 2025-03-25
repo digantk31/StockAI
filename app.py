@@ -157,7 +157,7 @@ if st.button('Hide Separate Plots'):
         hide_plots = False
 
 st.write("---")
-st.markdown("<h1 style='color: green;'>Thank you for using this app, <br>share with your friends!😄</h2>", unsafe_allow_html=True)
+st.markdown("<h1 style='color: green;'>Thank you for using this app!😄</h2>", unsafe_allow_html=True)
 st.write("---")
 st.write("### About the author:")
 
