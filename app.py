@@ -161,7 +161,7 @@ st.markdown("<h1 style='color: green;'>Thank you for using this app!😄</h2>", 
 st.write("---")
 st.write("### About the author:")
 
-st.write("<p style='color:blue; font-weight: bold ; font-size: 50px; '>- Digant Kathiriya <br>- Aryan Kanada</p>", unsafe_allow_html=True)
+st.write("<p style='color:blue; font-weight: bold ; font-size: 25px; '>- Digant Kathiriya <br>- Aryan Kanada</p>", unsafe_allow_html=True)
 
 
 
