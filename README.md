@@ -67,9 +67,13 @@ streamlit run app.py
 
 ## 📸 Sample Outputs
 1. **Main Interface**: Interactive price chart with date selection
+   ![Main Interface](https://github.com/digantk31/StockAI/blob/main/images/1-Main%20Interface.png)
 2. **Decomposition Plots**: Visual breakdown of time series components
+   ![Decomposition Plots](https://github.com/digantk31/StockAI/blob/main/images/2-Decomposition%20Plots.png)
 3. **Forecast Comparison**: Overlay of actual vs predicted values
+   ![Forecast Comparison](https://github.com/digantk31/StockAI/blob/main/images/3-Forecast%20Comparison.png)
 4. **Model Summary**: Statistical summary of SARIMAX parameters
+   ![Model Summary](https://github.com/digantk31/StockAI/blob/main/images/4-Model%20Summary.png)
 
 ## 🔗 Links
 - **GitHub Repository**: [GitHub](https://github.com/digantk31/StockAI)
