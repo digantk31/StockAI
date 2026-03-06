@@ -6,3 +6,6 @@ matplotlib
 seaborn
 plotly
 statsmodels
+scipy
+textblob
+scikit-learn

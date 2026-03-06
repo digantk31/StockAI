@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>StockAI — Architecture & Workflow Diagrams</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Make ALL text inside Mermaid diagrams BOLD and BIGGER */
+        .mermaid svg text {
+            font-weight: 900 !important;
+            font-size: 16px !important;
+        }
+
+        .mermaid svg .nodeLabel {
+            font-weight: 900 !important;
+            font-size: 16px !important;
+        }
+
+        .mermaid svg .edgeLabel {
+            font-weight: 700 !important;
+            font-size: 14px !important;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #ffffff;
+            color: #1a1a2e;
+            padding: 40px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+            color: #1a73e8;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 50px;
+            font-size: 1.1rem;
+        }
+
+        .diagram-section {
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .diagram-section h2 {
+            color: #1a73e8;
+            font-size: 1.4rem;
+            margin-bottom: 4px;
+        }
+
+        .diagram-section p {
+            color: #888;
+            margin-bottom: 16px;
+            font-size: 0.9rem;
+        }
+
+        .mermaid {
+            display: flex;
+            justify-content: center;
+            padding: 15px 0;
+            overflow-x: auto;
+        }
+
+        .mermaid svg {
+            max-width: 100%;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 900px) {
+            .two-col {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .legend {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 12px 20px;
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: #555;
+            line-height: 2.2;
+        }
+
+        .num-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #1a237e;
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 11px;
+            min-width: 24px;
+            height: 24px;
+            padding: 0 5px;
+            border-radius: 12px;
+            margin: 0 3px;
+            vertical-align: middle;
+            line-height: 1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>📈 StockAI — System Architecture</h1>
+    <p class="subtitle">AI-Powered Stock Market Intelligence Platform — Digant Kathiriya</p>
+
+    <!-- ========== 1. OVERALL SYSTEM ARCHITECTURE ========== -->
+    <div class="diagram-section">
+        <h2>1. Overall System Architecture</h2>
+        <p>How all components connect — numbered arrows show data flow order</p>
+        <div class="mermaid">
+            flowchart LR
+            A(("👤<br />User")) -->|"1"| B["Streamlit UI<br />(app.py)"]
+            B -->|"2"| C["Yahoo Finance<br />API"]
+            C -->|"3"| D["Raw Stock Data<br />+ News"]
+            D -->|"4a"| E["Module 1:<br />SARIMAX Forecast"]
+            D -->|"4b"| F["Module 2:<br />Portfolio Optimizer"]
+            D -->|"4c"| G["Module 3:<br />AI/ML Models"]
+            E -->|"5a"| H["Plotly<br />Charts"]
+            F -->|"5b"| H
+            G -->|"5c"| H
+            H -->|"6"| A
+
+            style A fill:#1a73e8,stroke:#1557b0,color:#fff
+            style B fill:#e8f0fe,stroke:#1a73e8,color:#1a1a2e
+            style C fill:#fef3c7,stroke:#d97706,color:#1a1a2e
+            style D fill:#f0fdf4,stroke:#16a34a,color:#1a1a2e
+            style E fill:#ede9fe,stroke:#7c3aed,color:#1a1a2e
+            style F fill:#ede9fe,stroke:#7c3aed,color:#1a1a2e
+            style G fill:#ede9fe,stroke:#7c3aed,color:#1a1a2e
+            style H fill:#fce7f3,stroke:#db2777,color:#1a1a2e
+        </div>
+        <div class="legend">
+            <span class="num-badge">1</span> User enters ticker → <span class="num-badge">2</span> App calls Yahoo
+            Finance → <span class="num-badge">3</span> Gets data → <span class="num-badge">4a</span>/<span
+                class="num-badge">4b</span>/<span class="num-badge">4c</span> Three modules run in parallel → <span
+                class="num-badge">5a</span>/<span class="num-badge">5b</span>/<span class="num-badge">5c</span> Results
+            sent to charts → <span class="num-badge">6</span> Displayed to user
+        </div>
+    </div>
+
+    <!-- ========== 2. STOCK FORECAST WORKFLOW ========== -->
+    <div class="diagram-section">
+        <h2>2. Stock Forecasting Workflow (SARIMAX)</h2>
+        <p>Step-by-step activity diagram — circles show process order</p>
+        <div class="mermaid">
+            flowchart LR
+            A(("1")) -->|"Enter ticker<br />&amp; dates"| B(("2"))
+            B -->|"Fetch data<br />from Yahoo"| C{{"3 Data<br />found?"}}
+            C -->|"No"| ERR["❌ Invalid Ticker"]
+            C -->|"Yes"| D(("4"))
+            D -->|"ADF Test:<br />Is data stable?"| E(("5"))
+            E -->|"Decompose:<br />Trend+Season+Noise"| F(("6"))
+            F -->|"Set SARIMAX<br />params (p,d,q)"| G(("7"))
+            G -->|"Train model<br />on history"| H(("8"))
+            H -->|"Predict<br />future prices"| I(("9"))
+            I -->|"Calculate<br />RMSE, MAPE"| J(("10"))
+            J -->|"Plot: Actual<br />vs Forecast"| K{{"11 Run<br />Backtest?"}}
+            K -->|"Yes"| L(("12"))
+            L -->|"Hide 30 days,<br />train, predict,<br />compare"| M(("13"))
+            K -->|"No"| M
+            M -->|"Show<br />results"| N(("✅"))
+
+            style A fill:#1a237e,stroke:#0d1559,color:#fff
+            style B fill:#1a237e,stroke:#0d1559,color:#fff
+            style D fill:#1a237e,stroke:#0d1559,color:#fff
+            style E fill:#1a237e,stroke:#0d1559,color:#fff
+            style F fill:#1a237e,stroke:#0d1559,color:#fff
+            style G fill:#1a237e,stroke:#0d1559,color:#fff
+            style H fill:#1a237e,stroke:#0d1559,color:#fff
+            style I fill:#1a237e,stroke:#0d1559,color:#fff
+            style J fill:#1a237e,stroke:#0d1559,color:#fff
+            style L fill:#1a237e,stroke:#0d1559,color:#fff
+            style M fill:#1a237e,stroke:#0d1559,color:#fff
+            style N fill:#2ecc71,stroke:#27ae60,color:#fff
+            style ERR fill:#e74c3c,stroke:#c0392b,color:#fff
+            style C fill:#f39c12,stroke:#e67e22,color:#fff
+            style K fill:#f39c12,stroke:#e67e22,color:#fff
+        </div>
+        <div class="legend">
+            <span class="num-badge">1</span> Start → <span class="num-badge">2</span> Fetch data → <span
+                class="num-badge">3</span> Validate → <span class="num-badge">4</span> ADF test → <span
+                class="num-badge">5</span> Decompose → <span class="num-badge">6</span> Set params → <span
+                class="num-badge">7</span> Train → <span class="num-badge">8</span> Predict → <span
+                class="num-badge">9</span> Metrics → <span class="num-badge">10</span> Plot → <span
+                class="num-badge">11</span> Backtest? → <span class="num-badge">12</span> Validate on hidden data →
+            <span class="num-badge">13</span> Done
+        </div>
+    </div>
+
+    <!-- ========== 3. PORTFOLIO WORKFLOW ========== -->
+    <div class="diagram-section">
+        <h2>3. Portfolio Analysis Workflow</h2>
+        <p>How the optimization pipeline works — step by step</p>
+        <div class="mermaid">
+            flowchart LR
+            A(("1")) -->|"Enter<br />tickers"| B(("2"))
+            B -->|"Fetch all<br />stocks + NIFTY50"| C{{"3 ≥2<br />valid?"}}
+            C -->|"No"| ERR["❌ Need 2+"]
+            C -->|"Yes"| D(("4"))
+            D -->|"Calculate<br />daily returns"| E(("5"))
+            E -->|"Correlation<br />matrix"| F(("6"))
+            F -->|"Performance<br />vs benchmark"| G(("7"))
+            G -->|"Generate 1000+<br />random portfolios"| H(("8"))
+            H -->|"Find optimal"| I(("9a<br />🏆 Best<br />Returns"))
+            H -->|"Find optimal"| J(("9b<br />🛡️ Safest"))
+            I & J -->|"Plot"| K(("10"))
+            K -->|"Efficient<br />Frontier"| L(("11"))
+            L -->|"Beta +<br />Drawdown"| M(("12"))
+            M -->|"Stress Test:<br />What if crash?"| N(("✅"))
+
+            style A fill:#1a237e,stroke:#0d1559,color:#fff
+            style B fill:#1a237e,stroke:#0d1559,color:#fff
+            style D fill:#1a237e,stroke:#0d1559,color:#fff
+            style E fill:#1a237e,stroke:#0d1559,color:#fff
+            style F fill:#1a237e,stroke:#0d1559,color:#fff
+            style G fill:#1a237e,stroke:#0d1559,color:#fff
+            style H fill:#1a237e,stroke:#0d1559,color:#fff
+            style K fill:#1a237e,stroke:#0d1559,color:#fff
+            style L fill:#1a237e,stroke:#0d1559,color:#fff
+            style M fill:#1a237e,stroke:#0d1559,color:#fff
+            style N fill:#2ecc71,stroke:#27ae60,color:#fff
+            style ERR fill:#e74c3c,stroke:#c0392b,color:#fff
+            style C fill:#f39c12,stroke:#e67e22,color:#fff
+            style I fill:#f39c12,stroke:#e67e22,color:#fff
+            style J fill:#3498db,stroke:#2980b9,color:#fff
+        </div>
+        <div class="legend">
+            <span class="num-badge">1</span> Start → <span class="num-badge">2</span> Fetch → <span
+                class="num-badge">3</span> Validate → <span class="num-badge">4</span> Returns → <span
+                class="num-badge">5</span> Correlation → <span class="num-badge">6</span> Benchmark compare → <span
+                class="num-badge">7</span> Monte Carlo (1000 portfolios) → <span class="num-badge">8</span> Find optimal
+            → <span class="num-badge">9a</span> Best Returns &amp; <span class="num-badge">9b</span> Safest (parallel) →
+            <span class="num-badge">10</span> Efficient Frontier → <span class="num-badge">11</span> Risk (Beta,
+            Drawdown) → <span class="num-badge">12</span> Stress Test → ✅ Done
+        </div>
+    </div>
+
+    <!-- ========== 4. AI PIPELINE ========== -->
+    <div class="diagram-section">
+        <h2>4. Advanced AI Pipeline — All 6 Algorithms</h2>
+        <p>Four AI sections run in parallel after data fetch</p>
+        <div class="mermaid">
+            flowchart LR
+            A(("1")) -->|"Enter<br />ticker"| B(("2"))
+            B -->|"Fetch 2yr<br />data + news"| C(("3"))
+
+            C -->|"Section 1"| D(("3a"))
+            C -->|"Section 2"| H(("3b"))
+            C -->|"Section 3"| K(("3c"))
+            C -->|"Section 4"| N(("3d"))
+
+            D -->|"Fetch<br />news"| E{{"4a FinBERT<br />available?"}}
+            E -->|"Yes"| F["FinBERT<br />Transformer"]
+            E -->|"No"| G["TextBlob<br />Fallback"]
+            F & G -->|"Score"| SENT(("5a<br />Sentiment"))
+
+            H -->|"RSI, SMA"| I(("4b"))
+            I -->|"Random Forest<br />100 trees"| J(("5b<br />Buy/Sell<br />Signal"))
+
+            K -->|"Scale &amp;<br />Sequence"| L(("4c"))
+            L -->|"MLP<br />(50,25)"| M(("5c<br />30-Day<br />Forecast"))
+
+            N -->|"Scale &amp;<br />Sequence"| O{{"4d LSTM<br />available?"}}
+            O -->|"Yes"| P["LSTM<br />2 layers"]
+            O -->|"No"| Q["GradientBoost<br />+ Temporal"]
+            P & Q --> R(("5d<br />30-Day<br />Forecast"))
+
+            M & R -->|"Compare"| S(("6"))
+            S -->|"R², RMSE, MAE<br />+ Combined Chart"| T(("✅"))
+
+            style A fill:#1a237e,stroke:#0d1559,color:#fff
+            style B fill:#1a237e,stroke:#0d1559,color:#fff
+            style C fill:#1a237e,stroke:#0d1559,color:#fff
+            style D fill:#1a237e,stroke:#0d1559,color:#fff
+            style H fill:#1a237e,stroke:#0d1559,color:#fff
+            style K fill:#1a237e,stroke:#0d1559,color:#fff
+            style N fill:#1a237e,stroke:#0d1559,color:#fff
+            style I fill:#1a237e,stroke:#0d1559,color:#fff
+            style L fill:#1a237e,stroke:#0d1559,color:#fff
+            style S fill:#1a237e,stroke:#0d1559,color:#fff
+            style T fill:#2ecc71,stroke:#27ae60,color:#fff
+            style E fill:#f39c12,stroke:#e67e22,color:#fff
+            style O fill:#f39c12,stroke:#e67e22,color:#fff
+            style F fill:#e8f0fe,stroke:#1a73e8,color:#1a1a2e
+            style G fill:#fef3c7,stroke:#d97706,color:#1a1a2e
+            style P fill:#e8f0fe,stroke:#1a73e8,color:#1a1a2e
+            style Q fill:#fef3c7,stroke:#d97706,color:#1a1a2e
+            style SENT fill:#ede9fe,stroke:#7c3aed,color:#1a1a2e
+            style J fill:#ede9fe,stroke:#7c3aed,color:#1a1a2e
+            style M fill:#ede9fe,stroke:#7c3aed,color:#1a1a2e
+            style R fill:#ede9fe,stroke:#7c3aed,color:#1a1a2e
+        </div>
+        <div class="legend">
+            <span class="num-badge">1</span> Start → <span class="num-badge">2</span> Fetch data → <span
+                class="num-badge">3</span> Split into 4 parallel sections: <span class="num-badge">3a</span> Sentiment,
+            <span class="num-badge">3b</span> Signal, <span class="num-badge">3c</span> MLP, <span
+                class="num-badge">3d</span> LSTM → <span class="num-badge">4a</span>-<span class="num-badge">4d</span>
+            Process each → <span class="num-badge">5a</span>-<span class="num-badge">5d</span> Results → <span
+                class="num-badge">6</span> Compare MLP vs LSTM → ✅ Done
+        </div>
+    </div>
+
+    <!-- ========== 5. MLP & LSTM ARCHITECTURE ========== -->
+    <div class="two-col">
+        <div class="diagram-section">
+            <h2>5a. MLP Neural Network Architecture</h2>
+            <p>Multi-Layer Perceptron — shallow neural network</p>
+            <div class="mermaid">
+                flowchart LR
+                A(("1<br />Input<br />60 prices")) -->|"feed"| B(("2<br />Hidden 1<br />50 neurons<br />ReLU"))
+                B -->|"forward"| C(("3<br />Hidden 2<br />25 neurons<br />ReLU"))
+                C -->|"output"| D(("4<br />Predicted<br />Price"))
+
+                style A fill:#e8f0fe,stroke:#1a73e8,color:#1a1a2e
+                style B fill:#ede9fe,stroke:#7c3aed,color:#1a1a2e
+                style C fill:#ede9fe,stroke:#7c3aed,color:#1a1a2e
+                style D fill:#f0fdf4,stroke:#16a34a,color:#1a1a2e
+            </div>
+            <div class="legend"><span class="num-badge">1</span> 60 past prices → <span class="num-badge">2</span> Layer
+                1 (50 neurons, ReLU) → <span class="num-badge">3</span> Layer 2 (25 neurons, ReLU) → <span
+                    class="num-badge">4</span> Output price</div>
+        </div>
+
+        <div class="diagram-section">
+            <h2>5b. LSTM Deep Learning Architecture</h2>
+            <p>Long Short-Term Memory — recurrent neural network</p>
+            <div class="mermaid">
+                flowchart LR
+                A(("1<br />Input<br />60 steps")) -->|"sequence"| B(("2<br />LSTM 1<br />50 units"))
+                B -->|"drop 20%"| C(("3<br />Dropout<br />0.2"))
+                C -->|"sequence"| D(("4<br />LSTM 2<br />50 units"))
+                D -->|"drop 20%"| E(("5<br />Dropout<br />0.2"))
+                E -->|"dense"| F(("6<br />Dense<br />25 ReLU"))
+                F -->|"output"| G(("7<br />Predicted<br />Price"))
+
+                style A fill:#e8f0fe,stroke:#1a73e8,color:#1a1a2e
+                style B fill:#ede9fe,stroke:#7c3aed,color:#1a1a2e
+                style C fill:#fef3c7,stroke:#d97706,color:#1a1a2e
+                style D fill:#ede9fe,stroke:#7c3aed,color:#1a1a2e
+                style E fill:#fef3c7,stroke:#d97706,color:#1a1a2e
+                style F fill:#f0fdf4,stroke:#16a34a,color:#1a1a2e
+                style G fill:#f0fdf4,stroke:#16a34a,color:#1a1a2e
+            </div>
+            <div class="legend"><span class="num-badge">1</span> 60 timesteps → <span class="num-badge">2</span>
+                LSTM(50) → <span class="num-badge">3</span> Dropout → <span class="num-badge">4</span> LSTM(50) → <span
+                    class="num-badge">5</span> Dropout → <span class="num-badge">6</span> Dense(25) → <span
+                    class="num-badge">7</span> Predicted price</div>
+        </div>
+    </div>
+
+    <!-- ========== 6. LSTM CELL GATES ========== -->
+    <div class="diagram-section">
+        <h2>6. Inside an LSTM Cell — The 3 Gates</h2>
+        <p>How LSTM decides what to remember and what to forget</p>
+        <div class="mermaid">
+            flowchart LR
+            A(("1<br />Previous<br />Output")) --> D
+            B(("2<br />New<br />Input")) --> D
+
+            D(("3<br />Combine")) -->|"3a"| E(("🚪<br />Forget<br />Gate<br />σ"))
+            D -->|"3b"| F(("🚪<br />Input<br />Gate<br />σ"))
+            D -->|"3c"| G(("🚪<br />Output<br />Gate<br />σ"))
+
+            E -->|"4 What<br />to forget"| H(("5<br />Cell State<br />Memory"))
+            F -->|"4 What<br />new to add"| H
+            H -->|"6 Filter<br />by output gate"| G
+            G -->|"7"| I(("8<br />New<br />Output"))
+
+            style A fill:#e8f0fe,stroke:#1a73e8,color:#1a1a2e
+            style B fill:#e8f0fe,stroke:#1a73e8,color:#1a1a2e
+            style D fill:#fef3c7,stroke:#d97706,color:#1a1a2e
+            style E fill:#fee2e2,stroke:#ef4444,color:#1a1a2e
+            style F fill:#f0fdf4,stroke:#16a34a,color:#1a1a2e
+            style G fill:#ede9fe,stroke:#7c3aed,color:#1a1a2e
+            style H fill:#fce7f3,stroke:#db2777,color:#1a1a2e
+            style I fill:#2ecc71,stroke:#27ae60,color:#fff
+        </div>
+        <div class="legend">
+            <span class="num-badge">1</span> Previous output + <span class="num-badge">2</span> New input → <span
+                class="num-badge">3</span> Combined → Three gates run in parallel: <span class="num-badge">3a</span>
+            Forget (what old info to discard), <span class="num-badge">3b</span> Input (what new info to store), <span
+                class="num-badge">3c</span> Output (what to output) → <span class="num-badge">4</span> Update → <span
+                class="num-badge">5</span> Cell State (long-term memory) → <span class="num-badge">6</span><span
+                class="num-badge">7</span> Filter → <span class="num-badge">8</span> New output
+        </div>
+    </div>
+
+    <!-- ========== 7. DATA FLOW DIAGRAM ========== -->
+    <div class="diagram-section">
+        <h2>7. Data Flow Diagram (DFD — Level 0)</h2>
+        <p>How data enters, gets processed, and exits the system</p>
+        <div class="mermaid">
+            flowchart LR
+            A(("👤<br />User")) -->|"1 Ticker,<br />Dates,<br />Params"| B["StockAI<br />Application"]
+            C[("Yahoo<br />Finance<br />Prices")] -->|"2 Historical<br />Price Data"| B
+            D[("Yahoo<br />Finance<br />News")] -->|"3 News<br />Headlines"| B
+            B -->|"4a Forecasts"| E(("📊<br />Charts"))
+            B -->|"4b Portfolios"| E
+            B -->|"4c AI Signals"| E
+            E -->|"5 Visual<br />Results"| A
+
+            style A fill:#1a73e8,stroke:#1557b0,color:#fff
+            style B fill:#ede9fe,stroke:#7c3aed,color:#1a1a2e
+            style C fill:#fef3c7,stroke:#d97706,color:#1a1a2e
+            style D fill:#fef3c7,stroke:#d97706,color:#1a1a2e
+            style E fill:#f0fdf4,stroke:#16a34a,color:#1a1a2e
+        </div>
+        <div class="legend">
+            <span class="num-badge">1</span> User sends input → <span class="num-badge">2</span> &amp; <span
+                class="num-badge">3</span> System fetches stock data &amp; news → <span
+                class="num-badge">4a</span>/<span class="num-badge">4b</span>/<span class="num-badge">4c</span> Three
+            modules process in parallel → <span class="num-badge">5</span> Charts displayed to user
+        </div>
+    </div>
+
+    <!-- ========== 8. TECH STACK ========== -->
+    <div class="diagram-section">
+        <h2>8. Technology Stack</h2>
+        <p>All libraries and frameworks used in the project</p>
+        <div class="mermaid">
+            flowchart LR
+            subgraph FRONTEND["🖥️ Frontend"]
+            ST(("Streamlit"))
+            PL(("Plotly"))
+            end
+            subgraph ML["🧠 Machine Learning"]
+            SK(("Scikit<br />Learn"))
+            TF(("Tensor<br />Flow"))
+            HF(("Hugging<br />Face"))
+            TB(("Text<br />Blob"))
+            end
+            subgraph MATH["📐 Math"]
+            SM(("Stats<br />models"))
+            SC(("SciPy"))
+            end
+            subgraph DATA["📊 Data"]
+            PD(("Pandas"))
+            NP(("NumPy"))
+            YF(("yfinance"))
+            end
+
+            ST -->|"1"| SK & TF & HF & TB & SM & SC
+            ST -->|"2"| PL
+            SK & TF & SM -->|"3"| PD & NP
+            PD -->|"4"| YF
+
+            style FRONTEND fill:#e8f0fe,stroke:#1a73e8,color:#1a1a2e
+            style ML fill:#ede9fe,stroke:#7c3aed,color:#1a1a2e
+            style MATH fill:#fef3c7,stroke:#d97706,color:#1a1a2e
+            style DATA fill:#f0fdf4,stroke:#16a34a,color:#1a1a2e
+        </div>
+        <div class="legend">
+            <span class="num-badge">1</span> Streamlit calls ML/Math libraries → <span class="num-badge">2</span> Plotly
+            renders charts → <span class="num-badge">3</span> ML uses Pandas/NumPy for data → <span
+                class="num-badge">4</span> Pandas fetches from Yahoo Finance API
+        </div>
+    </div>
+
+    <!-- ========== 9. RANDOM FOREST PROCESS ========== -->
+    <div class="diagram-section">
+        <h2>9. Random Forest — How It Predicts Buy/Sell</h2>
+        <p>100 decision trees vote on the prediction</p>
+        <div class="mermaid">
+            flowchart LR
+            A(("1<br />Stock<br />Data")) -->|"Calculate"| B(("2<br />Features:<br />RSI, SMA,<br />Returns"))
+            B -->|"3a"| C(("🌲<br />Tree 1<br />→ BUY"))
+            B -->|"3b"| D(("🌲<br />Tree 2<br />→ SELL"))
+            B -->|"3c"| E(("🌲<br />Tree 3<br />→ BUY"))
+            B -->|"..."| F(("🌲<br />Tree 100<br />→ BUY"))
+            C & D & E & F -->|"4 Vote"| G(("5<br />Majority<br />Wins"))
+            G -->|"6"| H(("✅<br />BUY<br />65%<br />confidence"))
+
+            style A fill:#e8f0fe,stroke:#1a73e8,color:#1a1a2e
+            style B fill:#fef3c7,stroke:#d97706,color:#1a1a2e
+            style C fill:#f0fdf4,stroke:#16a34a,color:#1a1a2e
+            style D fill:#fee2e2,stroke:#ef4444,color:#1a1a2e
+            style E fill:#f0fdf4,stroke:#16a34a,color:#1a1a2e
+            style F fill:#f0fdf4,stroke:#16a34a,color:#1a1a2e
+            style G fill:#ede9fe,stroke:#7c3aed,color:#1a1a2e
+            style H fill:#2ecc71,stroke:#27ae60,color:#fff
+        </div>
+        <div class="legend">
+            <span class="num-badge">1</span> Raw data → <span class="num-badge">2</span> Calculate features (RSI, SMA) →
+            <span class="num-badge">3a</span>/<span class="num-badge">3b</span>/<span class="num-badge">3c</span>... 100
+            trees predict independently in parallel → <span class="num-badge">4</span> All trees vote → <span
+                class="num-badge">5</span> Majority wins → <span class="num-badge">6</span> Final: BUY (65% confidence)
+        </div>
+    </div>
+
+    <!-- ========== 10. SENTIMENT ANALYSIS FLOW ========== -->
+    <div class="diagram-section">
+        <h2>10. Sentiment Analysis — FinBERT vs TextBlob</h2>
+        <p>How news is converted to Positive/Negative scores</p>
+        <div class="mermaid">
+            flowchart LR
+            A(("1<br />Fetch<br />News")) -->|"headlines"| B(("2<br />Check:<br />FinBERT<br />available?"))
+            B -->|"3a Yes"| C(("FinBERT<br />Transformer<br />50K financial<br />texts"))
+            B -->|"3b No"| D(("TextBlob<br />+Financial<br />Lexicon"))
+            C -->|"4a Score<br />each headline"| E(("5<br />Average<br />Score"))
+            D -->|"4b Score<br />each headline"| E
+            E -->|"6"| F{{"Score gt 0.1?"}}
+            F -->|"Yes"| G(("✅<br />POSITIVE<br />📈"))
+            F -->|"No"| H{{"Score lt -0.1?"}}
+            H -->|"Yes"| I(("⚠️<br />NEGATIVE<br />📉"))
+            H -->|"No"| J(("➖<br />NEUTRAL"))
+
+            style A fill:#e8f0fe,stroke:#1a73e8,color:#1a1a2e
+            style B fill:#fef3c7,stroke:#d97706,color:#1a1a2e
+            style C fill:#ede9fe,stroke:#7c3aed,color:#1a1a2e
+            style D fill:#fef3c7,stroke:#d97706,color:#1a1a2e
+            style E fill:#fce7f3,stroke:#db2777,color:#1a1a2e
+            style G fill:#2ecc71,stroke:#27ae60,color:#fff
+            style I fill:#e74c3c,stroke:#c0392b,color:#fff
+            style J fill:#95a5a6,stroke:#7f8c8d,color:#fff
+        </div>
+        <div class="legend">
+            <span class="num-badge">1</span> Fetch news → <span class="num-badge">2</span> Check if FinBERT installed →
+            <span class="num-badge">3a</span> FinBERT (best) or <span class="num-badge">3b</span> TextBlob (fallback) —
+            parallel paths → <span class="num-badge">4</span> Score each headline -1 to +1 → <span
+                class="num-badge">5</span> Average → <span class="num-badge">6</span> Classify: Positive / Negative /
+            Neutral
+        </div>
+    </div>
+
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'base',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis',
+                nodeSpacing: 30,
+                rankSpacing: 40
+            },
+            themeVariables: {
+                background: '#ffffff',
+                primaryColor: '#e8f0fe',
+                primaryTextColor: '#1a1a2e',
+                primaryBorderColor: '#1a73e8',
+                lineColor: '#1a73e8',
+                secondaryColor: '#ede9fe',
+                tertiaryColor: '#f0fdf4',
+                fontFamily: 'Segoe UI, sans-serif',
+                fontSize: '13px'
+            }
+        });
+    </script>
+
+</body>
+
+</html>
