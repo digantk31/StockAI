@@ -185,7 +185,7 @@ For real-time streaming, you can optionally configure WebSocket APIs:
 2.  **Stock Forecast** — Enter a stock ticker (e.g., AAPL), adjust settings, click "Run Forecast". Use backtesting to check real-world accuracy.
 3.  **Portfolio Analysis** — Enter multiple tickers (e.g., `RELIANCE.NS, TCS.NS, HDFCBANK.NS`) to see which combination gives best returns with least risk.
 4.  **Advanced AI** — Enter a ticker to get AI-powered sentiment, trend signals, and price predictions from multiple models.
->>>>>>> 6386e94637a22f90201315ae3415d652ac7ba5f0
+5.  **Trading Center** — Test trading strategies with realistic transaction costs, analyze performance metrics, and export results.
 
 ## 📸 What You'll See
 - **Risk vs Return Map** — Scatter plot showing best portfolio combinations
@@ -197,8 +197,6 @@ For real-time streaming, you can optionally configure WebSocket APIs:
 - **Backtest Results** — Equity curves with buy/sell markers, performance metrics, and trade logs
 - **Multi-Market Analysis** — Portfolio optimization across different global markets
 - **Transaction Cost Impact** — Realistic cost analysis for trading strategies
- 
->>>>>>> 6386e94637a22f90201315ae3415d652ac7ba5f0
 
 ## 📸 Sample Outputs
 
@@ -234,8 +232,6 @@ For real-time streaming, you can optionally configure WebSocket APIs:
 - **Location**: Trading Center → Performance Analytics  
 - **Show**: Risk metrics dashboard, Sharpe ratio, max drawdown, transaction cost analysis
 
- 
->>>>>>> 6386e94637a22f90201315ae3415d652ac7ba5f0
 ## ⚠️ Disclaimer
 This application is built for **educational and academic purposes only**. The predictions, signals, and analysis should **not** be used as financial advice or for real trading decisions.
 
