@@ -6,6 +6,7 @@
 [![Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://stockai-app.streamlit.app/)
 
 ## 📌 Overview
+<<<<<<< HEAD
 StockAI is a comprehensive **AI/ML-powered Stock Intelligence Platform** built as a final year BTech CSE project. It combines statistical modeling, deep learning, ensemble methods, and NLP to analyze stocks, forecast prices, optimize portfolios, and backtest trading strategies with realistic transaction costs.
 
 The application has four main modules:
@@ -13,6 +14,14 @@ The application has four main modules:
 2.  **Portfolio Analysis** — Find the best stock combinations using optimization & risk analysis
 3.  **Advanced AI** — Multiple AI models for price prediction, trend signals, and news sentiment
 4.  **Trading Center** — Professional backtesting engine with transaction costs and multi-market support
+=======
+StockAI is a comprehensive **AI/ML-powered Stock Intelligence Platform** built as a final year BTech CSE project. It combines statistical modeling, deep learning, ensemble methods, and NLP to analyze stocks, forecast prices, and optimize portfolios.
+
+The application has three main modules:
+1.  **Stock Forecast** — Predict future prices using time-series analysis (SARIMAX)
+2.  **Portfolio Analysis** — Find the best stock combinations using optimization & risk analysis
+3.  **Advanced AI** — Multiple AI models for price prediction, trend signals, and news sentiment
+>>>>>>> 6386e94637a22f90201315ae3415d652ac7ba5f0
 
 ## 🚀 Key Features
 
@@ -39,6 +48,7 @@ The application has four main modules:
 - **Model Comparison** — Side-by-side MLP vs LSTM with combined forecast chart and metrics (R², RMSE, MAE)
 - **Auto-fallback** — Gracefully switches to alternative models based on available libraries
 
+<<<<<<< HEAD
 ### 4. Trading Center & Backtesting Engine
 - **Multi-Market Support** — Trade Indian (NSE), US (NYSE/NASDAQ), and European stocks with automatic market detection
 - **Professional Backtesting** — Test strategies with realistic transaction costs (brokerage fees, STT, slippage)
@@ -48,6 +58,8 @@ The application has four main modules:
 - **Transaction Cost Modeling** — Realistic cost simulation for Indian markets (brokerage, STT, other charges)
 - **Risk Management** — Position sizing, stop-loss, and portfolio risk metrics
 
+=======
+>>>>>>> 6386e94637a22f90201315ae3415d652ac7ba5f0
 ## 🛠️ Technologies Used
 | Category | Technology |
 |----------|-----------|
@@ -58,8 +70,11 @@ The application has four main modules:
 | Deep Learning | TensorFlow/Keras (LSTM) |
 | NLP | FinBERT (HuggingFace Transformers) + TextBlob (fallback) |
 | Portfolio Optimization | SciPy (`scipy.optimize`) |
+<<<<<<< HEAD
 | Real-time Data | WebSocket, Asyncio, WebSockets (framework) |
 | Backtesting Engine | Custom strategy framework with transaction costs |
+=======
+>>>>>>> 6386e94637a22f90201315ae3415d652ac7ba5f0
 | Visualization | Plotly (interactive charts) |
 | Data Processing | Pandas, NumPy |
 
@@ -73,22 +88,37 @@ StockAI/
 │   ├── __init__.py
 │   ├── forecast_page.py            # SARIMAX forecasting page
 │   ├── portfolio_page.py           # Portfolio analysis page
+<<<<<<< HEAD
 │   ├── ai_page.py                  # Advanced AI insights page
 │   └── trading_page.py             # Trading center & backtesting interface
 ├── src/                            # Core analytics & AI engine
 │   ├── __init__.py
 │   ├── ai_features.py              # MLP, LSTM, GradientBoosting, Random Forest, FinBERT
 │   ├── data_fetcher.py             # Yahoo Finance data fetching & multi-market support
+=======
+│   └── ai_page.py                  # Advanced AI insights page
+├── src/                            # Core analytics & AI engine
+│   ├── __init__.py
+│   ├── ai_features.py              # MLP, LSTM, GradientBoosting, Random Forest, FinBERT
+│   ├── data_fetcher.py             # Yahoo Finance data fetching & cleaning
+>>>>>>> 6386e94637a22f90201315ae3415d652ac7ba5f0
 │   ├── returns_analysis.py         # Daily, monthly, annual returns & CAGR
 │   ├── correlation_analysis.py     # Correlation matrix & diversification metrics
 │   ├── portfolio_optimizer.py      # Mean-variance optimization & efficient frontier
 │   ├── risk_metrics.py             # Sharpe, Sortino, Beta, Alpha, VaR
+<<<<<<< HEAD
 │   ├── stress_testing.py           # Stress scenarios, drawdown & VaR/CVaR
 │   ├── real_time_data.py           # Real-time streaming architecture (WebSocket ready)
 │   └── backtesting_engine.py       # Professional backtesting with transaction costs
 ├── config/
 │   ├── __init__.py
 │   └── config.py                   # Multi-market tickers, benchmarks, trading parameters
+=======
+│   └── stress_testing.py           # Stress scenarios, drawdown & VaR/CVaR
+├── config/
+│   ├── __init__.py
+│   └── config.py                   # Tickers, date ranges, risk-free rate, scenarios
+>>>>>>> 6386e94637a22f90201315ae3415d652ac7ba5f0
 ├── .gitignore
 ├── requirements.txt
 └── README.md
@@ -124,6 +154,7 @@ pip install tensorflow transformers torch
 streamlit run app.py
 ```
 
+<<<<<<< HEAD
 ### 🌍 Multi-Market Setup
 The app supports multiple stock markets out of the box:
 - **Indian Market**: NIFTY 50 stocks (`.NS` suffix) - Benchmark: NIFTY 50 (^NSEI)
@@ -148,6 +179,13 @@ For real-time streaming, you can optionally configure WebSocket APIs:
 - **Performance Analytics**: Review Sharpe ratio, max drawdown, win rate, and comprehensive risk metrics
 - **Multi-Market Testing**: Backtest strategies across Indian, US, and European markets
 - **Export Results**: Download backtest results and trade logs for further analysis
+=======
+## 🖥️ How to Use
+1.  **Navigate** using the sidebar to choose between pages
+2.  **Stock Forecast** — Enter a stock ticker (e.g., AAPL), adjust settings, click "Run Forecast". Use backtesting to check real-world accuracy.
+3.  **Portfolio Analysis** — Enter multiple tickers (e.g., `RELIANCE.NS, TCS.NS, HDFCBANK.NS`) to see which combination gives best returns with least risk.
+4.  **Advanced AI** — Enter a ticker to get AI-powered sentiment, trend signals, and price predictions from multiple models.
+>>>>>>> 6386e94637a22f90201315ae3415d652ac7ba5f0
 
 ## 📸 What You'll See
 - **Risk vs Return Map** — Scatter plot showing best portfolio combinations
@@ -155,9 +193,12 @@ For real-time streaming, you can optionally configure WebSocket APIs:
 - **News Sentiment** — Table of recent news with positive/negative scores
 - **Model Comparison** — Which AI model predicts better for your stock
 - **Feature Importance** — What factors the AI relies on most
+<<<<<<< HEAD
 - **Backtest Results** — Equity curves with buy/sell markers, performance metrics, and trade logs
 - **Multi-Market Analysis** — Portfolio optimization across different global markets
 - **Transaction Cost Impact** — Realistic cost analysis for trading strategies
+=======
+>>>>>>> 6386e94637a22f90201315ae3415d652ac7ba5f0
 
 ## 📸 Sample Outputs
 
@@ -176,6 +217,7 @@ For real-time streaming, you can optionally configure WebSocket APIs:
 ### AI Insights — Sentiment & Feature Importance
 ![AI Insights — News Sentiment and Feature Importance](assets/ai_insights.png)
 
+<<<<<<< HEAD
 ### Trading Center — Strategy Backtesting
 ![Trading Center — Backtest Results with Transaction Costs](assets/trading_backtest.png)
 
@@ -192,6 +234,8 @@ For real-time streaming, you can optionally configure WebSocket APIs:
 - **Location**: Trading Center → Performance Analytics  
 - **Show**: Risk metrics dashboard, Sharpe ratio, max drawdown, transaction cost analysis
 
+=======
+>>>>>>> 6386e94637a22f90201315ae3415d652ac7ba5f0
 ## ⚠️ Disclaimer
 This application is built for **educational and academic purposes only**. The predictions, signals, and analysis should **not** be used as financial advice or for real trading decisions.
 

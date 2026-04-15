@@ -6,7 +6,10 @@ from datetime import date
 import pandas as pd
 # Local imports
 from src import DataFetcher, ReturnsAnalysis, CorrelationAnalysis, PortfolioOptimizer
+<<<<<<< HEAD
 from config.config import MARKET_GROUPS, BENCHMARK_TICKERS
+=======
+>>>>>>> 6386e94637a22f90201315ae3415d652ac7ba5f0
 
 def show_portfolio_page():
     st.title("Stock Portfolio Analysis")
@@ -18,6 +21,7 @@ def show_portfolio_page():
     # Portfolio Input
     st.sidebar.header("Portfolio Settings")
     
+<<<<<<< HEAD
     # Market Selection
     selected_market = st.sidebar.selectbox("Select Market", options=list(MARKET_GROUPS.keys()), index=0)
     
@@ -26,6 +30,10 @@ def show_portfolio_page():
         default_tickers = ", ".join(MARKET_GROUPS["All"][:15])  # Show first 15 to avoid clutter
     else:
         default_tickers = ", ".join(MARKET_GROUPS[selected_market])
+=======
+    # Predefined list of NIFTY 50 stocks (simplified)
+    default_tickers = "RELIANCE.NS, TCS.NS, HDFCBANK.NS, INFY.NS, ICICIBANK.NS, ITC.NS"
+>>>>>>> 6386e94637a22f90201315ae3415d652ac7ba5f0
     
     tickers_input = st.sidebar.text_area("Enter Stock Tickers (comma separated)", 
                                          value=default_tickers, height=100)
@@ -52,6 +60,7 @@ def show_portfolio_page():
                 end_str = end_date.strftime('%Y-%m-%d')
                 
                 # 1. Fetch Data
+<<<<<<< HEAD
                 # Determine the appropriate benchmark based on selected market
                 benchmark_ticker = BENCHMARK_TICKERS.get(selected_market, "^NSEI")
                 fetcher = DataFetcher(tickers=tickers, start_date=start_str, end_date=end_str)
@@ -60,6 +69,11 @@ def show_portfolio_page():
                 # Override the benchmark in fetcher
                 fetcher.benchmark = benchmark_ticker
                 
+=======
+                fetcher = DataFetcher(tickers=tickers, start_date=start_str, end_date=end_str)
+                stock_data = fetcher.fetch_stock_data(save_to_csv=False)
+                
+>>>>>>> 6386e94637a22f90201315ae3415d652ac7ba5f0
                 # --- VALIDATION LOGIC ---
                 fetched_tickers = stock_data.columns.tolist()
                 invalid_tickers = [t for t in tickers if t not in fetched_tickers]
@@ -100,11 +114,18 @@ def show_portfolio_page():
                 st.plotly_chart(fig_corr)
 
                 # --- 4. Cumulative Returns vs Benchmark ---
+<<<<<<< HEAD
                 benchmark_name = selected_market if selected_market != "All" else "S&P 500"
                 st.subheader(f"Performance Comparison (Growth of 1) vs {benchmark_name}")
                 
                 benchmark_data = None
                 with st.spinner(f"Fetching Benchmark ({benchmark_ticker}) data..."):
+=======
+                st.subheader("Performance Comparison (Growth of ₹1)")
+                
+                benchmark_data = None
+                with st.spinner("Fetching Benchmark (NIFTY 50) data..."):
+>>>>>>> 6386e94637a22f90201315ae3415d652ac7ba5f0
                     try:
                         benchmark_data = fetcher.fetch_benchmark_data(save_to_csv=False)
                         common_index = stock_data.index.intersection(benchmark_data.index)
@@ -119,7 +140,11 @@ def show_portfolio_page():
                         
                         fig_cum = go.Figure()
                         fig_cum.add_trace(go.Scatter(x=bench_cum_ret.index, y=bench_cum_ret, mode='lines', 
+<<<<<<< HEAD
                                                      name=f'{benchmark_name} (Benchmark)', line=dict(color='black', width=3, dash='dash')))
+=======
+                                                     name='NIFTY 50 (Benchmark)', line=dict(color='black', width=3, dash='dash')))
+>>>>>>> 6386e94637a22f90201315ae3415d652ac7ba5f0
                         
                         for col in stock_cum_ret.columns:
                             fig_cum.add_trace(go.Scatter(x=stock_cum_ret.index, y=stock_cum_ret[col], mode='lines', name=col, opacity=0.7))
@@ -228,7 +253,11 @@ def show_portfolio_page():
                     
                     # 3. Stress Testing (Scenario Analysis)
                     st.subheader("What If the Market Crashes?")
+<<<<<<< HEAD
                     st.write(f"If {benchmark_name} drops by X%, here's how your portfolio would be affected:")
+=======
+                    st.write("If NIFTY 50 drops by X%, here's how your portfolio would be affected:")
+>>>>>>> 6386e94637a22f90201315ae3415d652ac7ba5f0
                     
                     scenarios = [-10, -20, -30, -50] # Percent drops
                     stress_data = []
