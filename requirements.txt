@@ -1,4 +1,3 @@
- 
 streamlit
 yfinance
 pandas
@@ -13,16 +12,3 @@ scikit-learn
 websockets
 asyncio
 dataclasses
- 
-streamlit
-yfinance
-pandas
-numpy
-matplotlib
-seaborn
-plotly
-statsmodels
-scipy
-textblob
-scikit-learn
->>>>>>> 6386e94637a22f90201315ae3415d652ac7ba5f0

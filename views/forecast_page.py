@@ -11,10 +11,7 @@ from statsmodels.tsa.seasonal import seasonal_decompose
 import statsmodels.api as sm
 from statsmodels.tsa.stattools import adfuller
 from sklearn.metrics import mean_squared_error, mean_absolute_percentage_error
- 
 from config.config import MARKET_GROUPS
- 
->>>>>>> 6386e94637a22f90201315ae3415d652ac7ba5f0
 
 def show_forecast_page():
     # Title
@@ -27,7 +24,6 @@ def show_forecast_page():
     # Sidebar
     st.sidebar.header('Select the parameters from below')
 
- 
     # Market selection for suggested tickers
     selected_market = st.sidebar.selectbox("Select Market for Examples", options=list(MARKET_GROUPS.keys()), index=0)
     
@@ -39,17 +35,11 @@ def show_forecast_page():
     
     st.sidebar.caption(f"Example {selected_market} stocks: {example_tickers}")
 
- 
->>>>>>> 6386e94637a22f90201315ae3415d652ac7ba5f0
     start_date = st.sidebar.date_input('Start Date', date(2024, 1, 1))
     end_date = st.sidebar.date_input('End Date', date.today())
 
     # Get ticker symbol from user input
- 
     ticker = st.sidebar.text_input('Enter the company ticker symbol (e.g., AAPL)', value=example_tickers.split(',')[0].strip()).strip().upper()
- 
-    ticker = st.sidebar.text_input('Enter the company ticker symbol (e.g., AAPL)').strip().upper()
->>>>>>> 6386e94637a22f90201315ae3415d652ac7ba5f0
 
     # Validate ticker input
     if not ticker:
