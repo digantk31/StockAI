@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+ 
 
 import streamlit as st
 
@@ -11,7 +11,7 @@ from views.portfolio_page import show_portfolio_page
 from views.ai_page import show_ai_page
 from views.trading_page import show_trading_page
 
-# ============ MINIMAL CSS ENHANCEMENTS (works with Streamlit dark theme) ============
+#  ===== MINIMAL CSS ENHANCEMENTS (works with Streamlit dark theme)  =====
 st.markdown("""
 <style>
     /* Metric cards: subtle hover lift */
@@ -45,7 +45,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# ============ SIDEBAR BRANDING ============
+#  ===== SIDEBAR BRANDING  =====
 st.sidebar.markdown("""
 <div style="text-align: center; padding: 10px 0 20px 0; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 16px;">
     <h1 style="font-size: 1.8rem; margin: 0; color: #4da6ff;">📈 StockAI</h1>
@@ -99,7 +99,7 @@ elif page == "About":
     - **More Markets** — Support for US, Indian, and European stock exchanges
     """)
 
-=======
+ 
 
 import streamlit as st
 
@@ -111,7 +111,7 @@ from views.forecast_page import show_forecast_page
 from views.portfolio_page import show_portfolio_page
 from views.ai_page import show_ai_page
 
-# ============ MINIMAL CSS ENHANCEMENTS (works with Streamlit dark theme) ============
+#  ===== MINIMAL CSS ENHANCEMENTS (works with Streamlit dark theme)  =====
 st.markdown("""
 <style>
     /* Metric cards: subtle hover lift */
@@ -145,7 +145,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# ============ SIDEBAR BRANDING ============
+#  ===== SIDEBAR BRANDING  =====
 st.sidebar.markdown("""
 <div style="text-align: center; padding: 10px 0 20px 0; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 16px;">
     <h1 style="font-size: 1.8rem; margin: 0; color: #4da6ff;">📈 StockAI</h1>

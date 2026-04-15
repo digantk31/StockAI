@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+ 
 streamlit
 yfinance
 pandas
@@ -13,7 +13,7 @@ scikit-learn
 websockets
 asyncio
 dataclasses
-=======
+ 
 streamlit
 yfinance
 pandas

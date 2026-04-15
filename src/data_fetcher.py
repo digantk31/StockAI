@@ -15,11 +15,7 @@ _PROJECT_ROOT = str(Path(__file__).resolve().parent.parent)
 if _PROJECT_ROOT not in sys.path:
     sys.path.insert(0, _PROJECT_ROOT)
 from config.config import (
-<<<<<<< HEAD
-    STOCK_TICKERS, BENCHMARK_TICKER, BENCHMARK_TICKERS,
-=======
     STOCK_TICKERS, BENCHMARK_TICKER, 
->>>>>>> 6386e94637a22f90201315ae3415d652ac7ba5f0
     START_DATE_STR, END_DATE_STR, DATA_DIR
 )
 
@@ -29,11 +25,7 @@ class DataFetcher:
     Class to fetch and preprocess stock market data
     """
     
-<<<<<<< HEAD
-    def __init__(self, tickers=None, start_date=None, end_date=None, benchmark=None):
-=======
     def __init__(self, tickers=None, start_date=None, end_date=None):
->>>>>>> 6386e94637a22f90201315ae3415d652ac7ba5f0
         """
         Initialize DataFetcher with optional custom parameters
         
@@ -41,43 +33,13 @@ class DataFetcher:
             tickers: List of stock ticker symbols
             start_date: Start date for data (YYYY-MM-DD format)
             end_date: End date for data (YYYY-MM-DD format)
-<<<<<<< HEAD
-            benchmark: Custom benchmark ticker (auto-detected if None)
-=======
->>>>>>> 6386e94637a22f90201315ae3415d652ac7ba5f0
         """
         self.tickers = tickers or STOCK_TICKERS
         self.start_date = start_date or START_DATE_STR
         self.end_date = end_date or END_DATE_STR
-<<<<<<< HEAD
-        self.benchmark = benchmark or self._detect_market_benchmark()
-        self.price_data = None
-        self.benchmark_data = None
-    
-    def _detect_market_benchmark(self):
-        """
-        Automatically detect the appropriate benchmark based on ticker patterns
-        """
-        if not self.tickers:
-            return BENCHMARK_TICKER
-            
-        # Check ticker patterns to determine market
-        indian_count = sum(1 for ticker in self.tickers if ticker.endswith('.NS'))
-        us_count = sum(1 for ticker in self.tickers if '.' not in ticker and len(ticker) <= 5)
-        european_count = sum(1 for ticker in self.tickers if any(ticker.endswith(suffix) for suffix in ['.L', '.DE', '.SW', '.AS', '.PA']))
-        
-        # Determine dominant market
-        if indian_count >= max(us_count, european_count):
-            return BENCHMARK_TICKERS.get('Indian', '^NSEI')
-        elif european_count >= us_count:
-            return BENCHMARK_TICKERS.get('European', '^STOXX50E')
-        else:
-            return BENCHMARK_TICKERS.get('US', '^GSPC')
-=======
         self.benchmark = BENCHMARK_TICKER
         self.price_data = None
         self.benchmark_data = None
->>>>>>> 6386e94637a22f90201315ae3415d652ac7ba5f0
         
     def fetch_stock_data(self, save_to_csv=True):
         """

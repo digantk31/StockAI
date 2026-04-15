@@ -3,10 +3,10 @@ Configuration settings for Stock Portfolio Analysis
 """
 from datetime import datetime, timedelta
 
-<<<<<<< HEAD
+ 
 # Multi-market stock selections
 INDIAN_STOCKS = [
-=======
+ 
 # Selected NIFTY 50 stocks across different sectors for diversification
 STOCK_TICKERS = [
 >>>>>>> 6386e94637a22f90201315ae3415d652ac7ba5f0
@@ -22,7 +22,7 @@ STOCK_TICKERS = [
     "LT.NS",          # Infrastructure
 ]
 
-<<<<<<< HEAD
+ 
 US_STOCKS = [
     "AAPL",           # Technology
     "MSFT",           # Technology
@@ -55,7 +55,7 @@ STOCK_TICKERS = INDIAN_STOCKS
 # Stock sector mapping for all markets
 STOCK_SECTORS = {
     # Indian Stocks
-=======
+ 
 # Stock sector mapping
 STOCK_SECTORS = {
 >>>>>>> 6386e94637a22f90201315ae3415d652ac7ba5f0
@@ -69,7 +69,7 @@ STOCK_SECTORS = {
     "ITC.NS": "FMCG",
     "KOTAKBANK.NS": "Banking",
     "LT.NS": "Infrastructure",
-<<<<<<< HEAD
+ 
     # US Stocks
     "AAPL": "Technology",
     "MSFT": "Technology",
@@ -100,7 +100,7 @@ MARKET_GROUPS = {
     "US": US_STOCKS,
     "European": EUROPEAN_STOCKS,
     "All": INDIAN_STOCKS + US_STOCKS + EUROPEAN_STOCKS
-=======
+ 
 >>>>>>> 6386e94637a22f90201315ae3415d652ac7ba5f0
 }
 
@@ -112,7 +112,7 @@ START_DATE = END_DATE - timedelta(days=3*365)
 START_DATE_STR = START_DATE.strftime("%Y-%m-%d")
 END_DATE_STR = END_DATE.strftime("%Y-%m-%d")
 
-<<<<<<< HEAD
+ 
 # Market-specific benchmark indices
 BENCHMARK_TICKERS = {
     "Indian": "^NSEI",      # NIFTY 50
@@ -121,7 +121,7 @@ BENCHMARK_TICKERS = {
 }
 
 # Default benchmark (backward compatibility)
-=======
+ 
 # Benchmark index (NIFTY 50)
 >>>>>>> 6386e94637a22f90201315ae3415d652ac7ba5f0
 BENCHMARK_TICKER = "^NSEI"
