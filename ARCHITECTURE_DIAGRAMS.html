@@ -140,9 +140,11 @@
             D -->|"4a"| E["Module 1:<br />SARIMAX Forecast"]
             D -->|"4b"| F["Module 2:<br />Portfolio Optimizer"]
             D -->|"4c"| G["Module 3:<br />AI/ML Models"]
+            D -->|"4d"| TR["Module 4:<br />Trading Center"]
             E -->|"5a"| H["Plotly<br />Charts"]
             F -->|"5b"| H
             G -->|"5c"| H
+            TR -->|"5d"| H
             H -->|"6"| A
 
             style A fill:#1a73e8,stroke:#1557b0,color:#fff
@@ -152,13 +154,14 @@
             style E fill:#ede9fe,stroke:#7c3aed,color:#1a1a2e
             style F fill:#ede9fe,stroke:#7c3aed,color:#1a1a2e
             style G fill:#ede9fe,stroke:#7c3aed,color:#1a1a2e
+            style TR fill:#ede9fe,stroke:#7c3aed,color:#1a1a2e
             style H fill:#fce7f3,stroke:#db2777,color:#1a1a2e
         </div>
         <div class="legend">
             <span class="num-badge">1</span> User enters ticker → <span class="num-badge">2</span> App calls Yahoo
             Finance → <span class="num-badge">3</span> Gets data → <span class="num-badge">4a</span>/<span
-                class="num-badge">4b</span>/<span class="num-badge">4c</span> Three modules run in parallel → <span
-                class="num-badge">5a</span>/<span class="num-badge">5b</span>/<span class="num-badge">5c</span> Results
+                class="num-badge">4b</span>/<span class="num-badge">4c</span>/<span class="num-badge">4d</span> Four modules run in parallel → <span
+                class="num-badge">5a</span>/<span class="num-badge">5b</span>/<span class="num-badge">5c</span>/<span class="num-badge">5d</span> Results
             sent to charts → <span class="num-badge">6</span> Displayed to user
         </div>
     </div>
@@ -422,6 +425,7 @@
             B -->|"4a Forecasts"| E(("📊<br />Charts"))
             B -->|"4b Portfolios"| E
             B -->|"4c AI Signals"| E
+            B -->|"4d Trade Backtests"| E
             E -->|"5 Visual<br />Results"| A
 
             style A fill:#1a73e8,stroke:#1557b0,color:#fff
@@ -433,7 +437,7 @@
         <div class="legend">
             <span class="num-badge">1</span> User sends input → <span class="num-badge">2</span> &amp; <span
                 class="num-badge">3</span> System fetches stock data &amp; news → <span
-                class="num-badge">4a</span>/<span class="num-badge">4b</span>/<span class="num-badge">4c</span> Three
+                class="num-badge">4a</span>/<span class="num-badge">4b</span>/<span class="num-badge">4c</span>/<span class="num-badge">4d</span> Four
             modules process in parallel → <span class="num-badge">5</span> Charts displayed to user
         </div>
     </div>

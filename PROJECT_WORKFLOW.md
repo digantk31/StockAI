@@ -343,7 +343,7 @@ Meaning: At worst, you would have lost 20.8% from your highest point.
 ```
 User opens app (streamlit run app.py)
          ↓
-Sidebar shows 4 pages: Forecast | Portfolio | AI | About
+Sidebar shows 5 pages: Forecast | Portfolio | AI | Trading Center | About
          ↓
 User picks a page and enters stock ticker
          ↓
@@ -490,7 +490,7 @@ User enters: AAPL → Click "Analyze Stock"
 ### About the Project
 
 **Q: What is your project about?**
-> StockAI is an AI-powered stock market analysis platform. It has 3 modules: (1) Stock forecasting using SARIMAX time-series model, (2) Portfolio optimization using Modern Portfolio Theory, and (3) Advanced AI predictions using Neural Networks, Deep Learning, and NLP.
+> StockAI is an AI-powered stock market analysis platform. It has 4 modules: (1) Stock forecasting using SARIMAX time-series model, (2) Portfolio optimization using Modern Portfolio Theory, (3) Advanced AI predictions using Neural Networks, Deep Learning, and NLP, and (4) Trading Center for professional strategy backtesting with transaction cost simulation.
 
 **Q: What problem does it solve?**
 > Retail investors don't have access to expensive financial tools. Our app provides free stock analysis, price predictions, and portfolio optimization using AI — all through a simple web interface.

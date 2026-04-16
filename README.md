@@ -115,7 +115,7 @@ source venv/bin/activate
 3. Install dependencies:
 ```bash
 pip install -r requirements.txt
-pip install tensorflow transformers torch
+pip install tensorflow transformers torch torchvision
 ```
 
 > **Note**: `tensorflow`, `transformers`, and `torch` are optional. The app works without them using built-in fallback models (GradientBoosting for LSTM, TextBlob for FinBERT).
